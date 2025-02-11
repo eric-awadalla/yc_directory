@@ -3,6 +3,9 @@ import Image from "next/image";
 import { EyeIcon } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 import { Button } from "./ui/button";
+import { Author, Startup } from "@/sanity/types";
+
+export type StartUpTypeCard = Omit<Startup, "author"> & { author?: Author };
 
 const StartUpCard = ({ post }: { post: StartUpTypeCard }) => {
   return (
@@ -36,15 +39,11 @@ const StartUpCard = ({ post }: { post: StartUpTypeCard }) => {
         </Link>
       </div>
       <Link href={`/startup/${post._id}`}>
-        <p className="startup-card_desc ">{post.desciption}</p>
-        <img
-          src="https://plus.unsplash.com/premium_photo-1680402879257-48ffbbc6db1d?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          className="startup-card_img"
-          alt="placeholder"
-        />
+        <p className="startup-card_desc ">{post.description}</p>
+        <img src={post.image} className="startup-card_img" alt="placeholder" />
       </Link>
       <div className="flex-between gap-3 mt-5">
-        <Link href={`/?query=${post.category.toLowerCase()}`}>
+        <Link href={`/?query=${post.category?.toLowerCase()}`}>
           <p className="text-16-medium"></p>
         </Link>
         <Button className="startup-card_btn" asChild>
